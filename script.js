@@ -30,22 +30,51 @@ function operate (operation, number1, number2) {
 }
 
 //display interaction with buttons
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => {
-    button.addEventListener("click", () => display(button.textContent));
-});
-
-let displayContent = "";
-const displayDiv = document.getElementById("display");
-
-
 function display(button){
     if (button === "CA") {
-        displayContent = "";
+        displayContent = "0";
     } else if (button === "C") {
         displayContent = displayContent.substring(0,displayContent.length-1);
+    } else if (button === "=") {
+        displayContent = `${result}`;
     } else {
         displayContent += button;
     }
     displayDiv.textContent = displayContent;
 }
+
+//Create array with buttons as objects
+function initButton(value) {
+    const button = {
+        value,
+    }
+    //numbers
+    if ((value>0) && 
+        (value<10)) {
+            button.type = "number";
+    } else if ((value==="+") || //operations
+        (value==="-") || 
+        (value==="*") || 
+        (value==="/")) {
+            button.type = "op";
+    } else if (value===0) { //zero
+        button.type = "zero";
+    }
+    //CA, C and = dont need type
+    inputValues.push(button);
+}
+
+//variables and constants
+const inputValues = []
+let displayContent = "0";
+let result = 0;
+
+const displayDiv = document.getElementById("display");
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", () => 
+        display(button.textContent));
+        initButton(button.textContent);
+});
+
+console.log(inputValues);
