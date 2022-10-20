@@ -28,3 +28,24 @@ function operate (operation, number1, number2) {
             return divide(number1, number2);
     }
 }
+
+//display interaction with buttons
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", () => display(button.textContent));
+});
+
+let displayContent = "";
+const displayDiv = document.getElementById("display");
+
+
+function display(button){
+    if (button === "CA") {
+        displayContent = "";
+    } else if (button === "C") {
+        displayContent = displayContent.substring(0,displayContent.length-1);
+    } else {
+        displayContent += button;
+    }
+    displayDiv.textContent = displayContent;
+}
