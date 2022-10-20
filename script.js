@@ -48,14 +48,18 @@ function filterDisplay(input) {
     const button = inputValues.find(item => item.value===input);
     switch(button.type) {
         case "number":
-            if (button.value !== 0) {
-                displayContent = `${button.value}`;
+            if (displayContent === "0") {
+                if (button.value !== "0") {
+                    displayContent = `${button.value}`;
+                }
             } else {
-                displayContent+=`${button.value}`;
+                displayContent +=`${button.value}`;
             }
-        case "operation":
-            displayContent+=`${button.value}`;
-    } 
+            break;
+        case "op":
+            displayContent +=`${button.value}`;
+            break;
+    }
 }
     
 
