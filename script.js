@@ -34,7 +34,7 @@ function display(input){
     if (input === "CA") {
         displayContent = "0";
     } else if (input === "C") {
-        displayContent = displayContent.substring(0,displayContent.length-1);
+        removeLast();
     } else if (input === "=") {
         displayContent = `${result}`;
     } else {
@@ -47,7 +47,6 @@ function display(input){
 function filterDisplay(input) {
     const current = inputValues.find(item => item.value === input);
     const lastType = getLastType();
-    console.log(last);
     switch(current.type) {
         case "number":
             if (displayContent === "0") {
@@ -55,12 +54,32 @@ function filterDisplay(input) {
                     displayContent = `${current.value}`;
                 }
             } else {
-                displayContent +=`${current.value}`;
+                if (lastType === "number") {
+                    displayContent +=`${current.value}`;
+                } else if (lastType === "op") {
+                    displayContent = `${current.value}`;
+                }
             }
             break;
         case "op":
-            displayContent +=`${current.value}`;
+            if (lastType === "number") {
+                displayContent +=`${current.value}`;
+            } else if (lastType === "op") {
+                removeLast();
+                displayContent += `${current.value}`;
+            }
             break;
+    }
+}
+
+//remove last item
+function removeLast() {
+    if (displayContent !== "0") {
+        if (displayContent.length === 1) {
+            displayContent = "0";
+        } else {
+            displayContent = displayContent.substring(0,displayContent.length-1);
+        }
     }
 }
 
