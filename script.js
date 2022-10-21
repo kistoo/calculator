@@ -114,7 +114,10 @@ function filterContent(input) {
             } else {
                 if (lastType === "number") {
                     if (equalUse === false) {
-                        displayContent[displayContent.length - 1] +=`${current.value}`;
+                        if ((displayContent[displayContent.length - 1].includes(".") === false) ||
+                        current.value !== ".") { //evaluates that number doesnt have 2 "."
+                            displayContent[displayContent.length - 1] +=`${current.value}`;
+                        }
                     } else {
                         reset(current.value);
                     }
@@ -168,14 +171,14 @@ function initButton(value) {
         value,
     }
     //numbers
-    if ((value>=0) && 
-        (value<10)) {
-            button.type = "number";
-    } else if ((value==="+") || //operations
-        (value==="-") || 
-        (value==="*") || 
-        (value==="/")) {
-            button.type = "op";
+    if (((value>=0) && (value<10)) ||
+    (value === ".")) {
+        button.type = "number";
+    } else if ((value === "+") || //operations
+    (value === "-") || 
+    (value ===  "*") || 
+    (value === "/")) {
+        button.type = "op";
     }
     //CA, C and = dont need type
     inputValues.push(button);
