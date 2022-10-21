@@ -5,11 +5,17 @@ body {
     justify-content: center;
 }
 
+button {
+    font-size: 30px;
+    border-radius: 5%;
+    border-color: #969696;
+}
+
 #display {
     width: 400px;
     height: 100px;
     text-align: end;
-    background-color: #242424;
+    background-color: #394139;
     color: aliceblue;
     font-size: 70px;
 }
