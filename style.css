@@ -1,8 +1,8 @@
 body {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #ca9b55;
 }
 
 button {
@@ -11,11 +11,24 @@ button {
     border-color: #969696;
 }
 
+#calculator {
+    width: 500px;
+    height: 700px;
+    border-radius: 5%;
+    background-color: rgb(43, 43, 43);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
 #display {
     width: 400px;
     height: 100px;
     text-align: end;
-    background-color: #394139;
+    background-color: #799679;
     color: aliceblue;
     font-size: 70px;
 }
