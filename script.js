@@ -38,13 +38,13 @@ function display(input){
     } else if (input === "=") {
         displayContent.push(`${result}`);
     } else {
-        filterDisplay(input);
+        filterContent(input);
     }
     displayDiv.textContent = `${displayContent}`;
 }
 
 //create a filter for display
-function filterDisplay(input) {
+function filterContent(input) {
     const current = inputValues.find(item => item.value === input);
     const lastType = getLastType();
     switch(current.type) {
