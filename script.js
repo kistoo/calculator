@@ -14,7 +14,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b === "0") {
+        return "ERROR";
+    } else {
+        return a / b;
+    }
 }
 
 function round(n) {
@@ -46,13 +50,19 @@ function evaluate() {
         const length = displayContent.length;
         result = operate(displayContent[length-2], displayContent[length-3], displayContent[length-1]);
     }
-    result = round(result);
-    displayContent.push(`${result}`);
-    console.log(displayContent);
+    if (result === "ERROR"){
+        displayContent = ["ERROR"];
+    } else {
+        result = round(result);
+        displayContent.push(`${result}`);
+    }
 }
 
 //display interaction with buttons
 function display(input) {
+    if (displayContent[0] === "ERROR") {
+        reset();
+    }
     if (input === "CA") {
         reset();
         equalUse = false;
