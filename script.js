@@ -1,19 +1,19 @@
 //basic operations
-function sum (a, b) {
+function sum(a, b) {
     a = parseInt(a);
     b = parseInt(b);
     return a + b;
 }
 
-function subtract (a, b) {
+function subtract(a, b) {
     return a - b;
 }
 
-function multiply (a, b) {
+function multiply(a, b) {
     return a * b;
 }
 
-function divide (a, b) {
+function divide(a, b) {
     return a / b;
 }
 
@@ -23,7 +23,7 @@ function round(n) {
 }
 
 //function for operations
-function operate (operation, number1, number2) {
+function operate(operation, number1, number2) {
     switch(operation){
         case "+":
             return sum(number1, number2);
@@ -52,18 +52,25 @@ function evaluate() {
 }
 
 //display interaction with buttons
-function display(input){
+function display(input) {
     if (input === "CA") {
-        displayContent = ["0"];
+        reset();
     } else if (input === "C") {
         removeLast();
     } else if (input === "=") {
         evaluate();
+        reset(result);
     } else {
         filterContent(input);
     }
     filterDisplay();
     displayDiv.textContent = displayVisible;
+}
+
+//create reset for the displayContent
+function reset(content="0") {
+    displayContent = [];
+    displayContent.push(`${content}`);
 }
 
 //create a display filter
