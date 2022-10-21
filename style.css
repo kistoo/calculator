@@ -24,6 +24,7 @@ button {
     display: flex;
     flex-direction: row;
     width: 400px;
+    height: 1000px;
 }
 
 #left-side {
