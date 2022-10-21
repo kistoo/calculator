@@ -46,6 +46,7 @@ function display(input){
 //create a filter for display
 function filterDisplay(input) {
     const button = inputValues.find(item => item.value===input);
+    const last = getLastType();
     switch(button.type) {
         case "number":
             if (displayContent === "0") {
@@ -61,7 +62,12 @@ function filterDisplay(input) {
             break;
     }
 }
-    
+
+//looks for last item type
+function getLastType() {
+    const lastItem = displayContent.slice(displayContent.length-1);
+    console.log(lastItem);
+}
 
 //create array with buttons as objects
 function initButton(value) {
