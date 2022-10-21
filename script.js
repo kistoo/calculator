@@ -42,12 +42,12 @@ function operate(operation, number1, number2) {
 
 //create function to evaluate
 function evaluate() {
-    if (displayContent.length === 1) { //returns same number
+    const length = displayContent.length;
+    if (length === 1) { //returns same number
         result = displayContent[0];
     } else if (getLastType() === "op") { //operates with same number
         result = operate(displayContent[length-1], displayContent[length-2], displayContent[length-2]);
     } else { //operates last 3 items
-        const length = displayContent.length;
         result = operate(displayContent[length-2], displayContent[length-3], displayContent[length-1]);
     }
     if (result === "ERROR"){
