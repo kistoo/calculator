@@ -29,6 +29,20 @@ function operate (operation, number1, number2) {
     }
 }
 
+//create function to evaluate
+function evaluate() {
+    if (displayContent.length === 1) { //returns same number
+        result = displayContent[0];
+    } else if (getLastType() === "op") { //operates with same number
+        result = operate(displayContent[length-1], displayContent[length-2], displayContent[length-2]);
+    } else { //operates last 3 items
+        const length = displayContent.length;
+        result = operate(displayContent[length-2], displayContent[length-3], displayContent[length-1]);
+    }
+    displayContent.push(`${result}`);
+    console.log(displayContent);
+}
+
 //display interaction with buttons
 function display(input){
     if (input === "CA") {
@@ -36,7 +50,7 @@ function display(input){
     } else if (input === "C") {
         removeLast();
     } else if (input === "=") {
-        displayContent.push(`${result}`);
+        evaluate();
     } else {
         filterContent(input);
     }
@@ -48,7 +62,7 @@ function display(input){
 function filterDisplay() {
     if (displayContent.length === 1) {
         displayVisible = displayContent[0];
-    } else { //shows last 2 items from displayContent
+    } else { //at least 2 items in displayContent
         if (getLastType() === "number") { // shows only number
             displayVisible = `${displayContent[displayContent.length-1]}`;
         } else if (getLastType() === "op") { // shows number and op
@@ -78,6 +92,9 @@ function filterContent(input) {
             break;
         case "op":
             if (lastType === "number") {
+                if (displayContent.length >= 3) {
+                    evaluate();
+                }
                 displayContent.push(`${current.value}`);
             } else if (lastType === "op") {
                 removeLast();
