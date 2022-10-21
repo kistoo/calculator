@@ -55,13 +55,17 @@ function evaluate() {
 function display(input) {
     if (input === "CA") {
         reset();
+        equalUse = false;
     } else if (input === "C") {
         removeLast();
+        equalUse = false
     } else if (input === "=") {
         evaluate();
         reset(result);
+        equalUse = true;
     } else {
         filterContent(input);
+        equalUse = false;
     }
     filterDisplay();
     displayDiv.textContent = displayVisible;
@@ -99,7 +103,11 @@ function filterContent(input) {
                 }
             } else {
                 if (lastType === "number") {
-                    displayContent[displayContent.length - 1] +=`${current.value}`;
+                    if (equalUse === false) {
+                        displayContent[displayContent.length - 1] +=`${current.value}`;
+                    } else {
+                        reset(current.value);
+                    }
                 } else if (lastType === "op") {
                     displayContent.push(`${current.value}`);
                 }
@@ -168,6 +176,7 @@ const inputValues = []
 let displayContent = ["0"];
 let displayVisible = "";
 let result = 0;
+let equalUse = false;
 
 const displayDiv = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
