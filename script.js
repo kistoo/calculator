@@ -17,6 +17,11 @@ function divide (a, b) {
     return a / b;
 }
 
+function round(n) {
+    n = Math.round(n * 10000) / 10000;
+    return n;
+}
+
 //function for operations
 function operate (operation, number1, number2) {
     switch(operation){
@@ -41,6 +46,7 @@ function evaluate() {
         const length = displayContent.length;
         result = operate(displayContent[length-2], displayContent[length-3], displayContent[length-1]);
     }
+    result = round(result);
     displayContent.push(`${result}`);
     console.log(displayContent);
 }
