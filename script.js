@@ -40,10 +40,25 @@ function display(input){
     } else {
         filterContent(input);
     }
-    displayDiv.textContent = `${displayContent}`;
+    filterDisplay();
+    displayDiv.textContent = displayVisible;
 }
 
-//create a filter for display
+//create a display filter
+function filterDisplay() {
+    if (displayContent.length === 1) {
+        displayVisible = displayContent[0];
+    } else { //shows last 2 items from displayContent
+        if (getLastType() === "number") { // shows only number
+            displayVisible = `${displayContent[displayContent.length-1]}`;
+        } else if (getLastType() === "op") { // shows number and op
+            displayVisible = `${displayContent[displayContent.length-2]}${displayContent[displayContent.length-1]}`;
+        }
+    }
+}
+
+
+//create a filter for content
 function filterContent(input) {
     const current = inputValues.find(item => item.value === input);
     const lastType = getLastType();
@@ -119,6 +134,7 @@ function initButton(value) {
 //variables and constants
 const inputValues = []
 let displayContent = ["0"];
+let displayVisible = "";
 let result = 0;
 
 const displayDiv = document.getElementById("display");
