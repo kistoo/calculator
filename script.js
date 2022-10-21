@@ -32,15 +32,15 @@ function operate (operation, number1, number2) {
 //display interaction with buttons
 function display(input){
     if (input === "CA") {
-        displayContent = "0";
+        displayContent = ["0"];
     } else if (input === "C") {
         removeLast();
     } else if (input === "=") {
-        displayContent = `${result}`;
+        displayContent.push(`${result}`);
     } else {
         filterDisplay(input);
     }
-    displayDiv.textContent = displayContent;
+    displayDiv.textContent = `${displayContent}`;
 }
 
 //create a filter for display
@@ -49,44 +49,51 @@ function filterDisplay(input) {
     const lastType = getLastType();
     switch(current.type) {
         case "number":
-            if (displayContent === "0") {
+            if ((displayContent[0] === "0") && (displayContent.length === 1)) {
                 if (current.value !== "0") {
-                    displayContent = `${current.value}`;
+                    displayContent[0] = `${current.value}`;
                 }
             } else {
                 if (lastType === "number") {
-                    displayContent +=`${current.value}`;
+                    displayContent[displayContent.length - 1] +=`${current.value}`;
                 } else if (lastType === "op") {
-                    displayContent = `${current.value}`;
+                    displayContent.push(`${current.value}`);
                 }
             }
             break;
         case "op":
             if (lastType === "number") {
-                displayContent +=`${current.value}`;
+                displayContent.push(`${current.value}`);
             } else if (lastType === "op") {
                 removeLast();
-                displayContent += `${current.value}`;
+                displayContent.push(`${current.value}`);
             }
             break;
     }
 }
+//gets last item
+function getLastItem() {
+    return displayContent[displayContent.length - 1];
+}
 
 //remove last item
 function removeLast() {
-    if (displayContent !== "0") {
-        if (displayContent.length === 1) {
-            displayContent = "0";
+    if (displayContent.length === 1) {
+        displayContent[0] = "0";
+    } else {
+        const lastItem = getLastItem();
+        if (lastItem.length === 1) {
+            displayContent.pop();
         } else {
-            displayContent = displayContent.substring(0,displayContent.length-1);
+            lastItem.substring(0,lastItem.length-1);
         }
     }
 }
-
 //looks for last item type
 function getLastType() {
-    const lastItem = displayContent.slice(displayContent.length-1);
-    const last = inputValues.find(item => item.value === lastItem);
+    const lastItem = getLastItem();
+    const lastValue = lastItem.slice(lastItem.length - 1);
+    const last = inputValues.find(item => item.value === lastValue);
     return last.type;
 }
 
@@ -111,7 +118,7 @@ function initButton(value) {
 
 //variables and constants
 const inputValues = []
-let displayContent = "0";
+let displayContent = ["0"];
 let result = 0;
 
 const displayDiv = document.getElementById("display");
